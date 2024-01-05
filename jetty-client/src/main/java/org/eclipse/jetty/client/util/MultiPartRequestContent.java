@@ -19,6 +19,7 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -62,7 +63,7 @@ public class MultiPartRequestContent extends AbstractRequestContent implements C
 
     private static String makeBoundary()
     {
-        Random random = new Random();
+        Random random = new SecureRandom();
         StringBuilder builder = new StringBuilder("JettyHttpClientBoundary");
         int length = builder.length();
         while (builder.length() < length + 16)

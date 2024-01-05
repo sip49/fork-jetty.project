@@ -22,6 +22,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Path;
 import java.nio.file.PathMatcher;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -502,7 +503,7 @@ public abstract class AbstractWebAppMojo extends AbstractMojo
         jetty.setForkWebXml(forkWebXml);
         jetty.setContextXml(contextXml);
         jetty.setWebAppPropsFile(new File(target, "webApp.props"));
-        Random random = new Random();
+        Random random = new SecureRandom();
         String token = Long.toString(random.nextLong() ^ System.currentTimeMillis(), 36).toUpperCase(Locale.ENGLISH);
         jetty.setTokenFile(target.toPath().resolve(token + ".txt").toFile());
         jetty.setWebApp(webApp);
@@ -522,7 +523,7 @@ public abstract class AbstractWebAppMojo extends AbstractMojo
         jetty.setJettyProperties(jettyProperties);
         jetty.setModules(modules);
         jetty.setSystemProperties(mergedSystemProperties);
-        Random random = new Random();
+        Random random = new SecureRandom();
         String token = Long.toString(random.nextLong() ^ System.currentTimeMillis(), 36).toUpperCase(Locale.ENGLISH);
         jetty.setTokenFile(target.toPath().resolve(token + ".txt").toFile());
 

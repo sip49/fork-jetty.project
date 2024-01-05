@@ -361,7 +361,7 @@ public class DefaultSessionIdManager extends ContainerLifeCycle implements Sessi
             catch (Exception e)
             {
                 LOG.warn("Could not generate SecureRandom for session-id randomness", e);
-                _random = new Random();
+                _random = new SecureRandom();
                 _weakRandom = true;
             }
         }
