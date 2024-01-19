@@ -13,6 +13,7 @@
 
 package org.eclipse.jetty.start.builders;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -62,7 +63,7 @@ public class StartIniBuilder implements BaseBuilder.Config
         try (BufferedReader reader = Files.newBufferedReader(startIni, StandardCharsets.UTF_8))
         {
             String line;
-            while ((line = reader.readLine()) != null)
+            while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null)
             {
                 line = line.trim();
                 if (line.startsWith("--module="))
