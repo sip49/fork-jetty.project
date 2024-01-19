@@ -175,7 +175,8 @@
     <mongo.docker.version>3.2.20</mongo.docker.version>
     <settingsPath>src/it/settings.xml</settingsPath>
     <surefire.rerunFailingTestsCount>0</surefire.rerunFailingTestsCount>
-  </properties>
+  <versions.java-security-toolkit>1.1.1</versions.java-security-toolkit>
+ </properties>
 
   <licenses>
     <license>
@@ -2030,7 +2031,12 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-    </dependencies>
+   <dependency>
+    <groupId>io.github.pixee</groupId>
+    <artifactId>java-security-toolkit</artifactId>
+    <version>${versions.java-security-toolkit}</version>
+   </dependency>
+  </dependencies>
   </dependencyManagement>
 
   <profiles>

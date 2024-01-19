@@ -13,6 +13,7 @@
 
 package org.eclipse.jetty.security.authentication;
 
+import static io.github.pixee.security.jakarta.PathValidator.validateDispatcherPath;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -298,7 +299,7 @@ public class FormAuthenticator extends LoginAuthenticator
                 else if (_dispatch)
                 {
                     LOG.debug("auth failed {}=={}", username, _formErrorPage);
-                    RequestDispatcher dispatcher = request.getRequestDispatcher(_formErrorPage);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher(validateDispatcherPath(_formErrorPage));
                     response.setHeader(HttpHeader.CACHE_CONTROL.asString(), HttpHeaderValue.NO_CACHE.asString());
                     response.setDateHeader(HttpHeader.EXPIRES.asString(), 1);
                     dispatcher.forward(new FormRequest(request), new FormResponse(response));
@@ -391,7 +392,7 @@ public class FormAuthenticator extends LoginAuthenticator
             if (_dispatch)
             {
                 LOG.debug("challenge {}=={}", session.getId(), _formLoginPage);
-                RequestDispatcher dispatcher = request.getRequestDispatcher(_formLoginPage);
+                RequestDispatcher dispatcher = request.getRequestDispatcher(validateDispatcherPath(_formLoginPage));
                 response.setHeader(HttpHeader.CACHE_CONTROL.asString(), HttpHeaderValue.NO_CACHE.asString());
                 response.setDateHeader(HttpHeader.EXPIRES.asString(), 1);
                 dispatcher.forward(new FormRequest(request), new FormResponse(response));

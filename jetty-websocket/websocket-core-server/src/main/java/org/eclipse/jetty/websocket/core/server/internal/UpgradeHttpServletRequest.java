@@ -13,6 +13,7 @@
 
 package org.eclipse.jetty.websocket.core.server.internal;
 
+import static io.github.pixee.security.jakarta.PathValidator.validateDispatcherPath;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -592,7 +593,7 @@ public class UpgradeHttpServletRequest implements HttpServletRequest
     {
         if (request == null)
             throw new UnsupportedOperationException(UNSUPPORTED_AFTER_WEBSOCKET_UPGRADE);
-        return request.getRequestDispatcher(path);
+        return request.getRequestDispatcher(validateDispatcherPath(path));
     }
 
     @Override
