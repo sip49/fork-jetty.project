@@ -13,6 +13,7 @@
 
 package org.eclipse.jetty.start;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -89,7 +90,7 @@ public class Licensing
 
             BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
             System.err.printf("%nProceed (y/N)? ");
-            String response = input.readLine();
+            String response = BoundedLineReader.readLine(input, 5_000_000);
 
             licenseAck = (Utils.isNotBlank(response) && response.toLowerCase(Locale.ENGLISH).startsWith("y"));
         }

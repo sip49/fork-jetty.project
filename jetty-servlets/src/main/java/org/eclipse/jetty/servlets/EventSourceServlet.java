@@ -13,6 +13,7 @@
 
 package org.eclipse.jetty.servlets;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
@@ -157,7 +158,7 @@ public abstract class EventSourceServlet extends HttpServlet
             {
                 BufferedReader reader = new BufferedReader(new StringReader(data));
                 String line;
-                while ((line = reader.readLine()) != null)
+                while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null)
                 {
                     output.write(DATA_FIELD);
                     output.write(line.getBytes(StandardCharsets.UTF_8));

@@ -13,6 +13,7 @@
 
 package org.eclipse.jetty.util.security;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -270,12 +271,12 @@ public class Password extends Credential
             System.out.print(": ");
 
             BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-            String inputUser = input.readLine();
+            String inputUser = BoundedLineReader.readLine(input, 5_000_000);
             if (StringUtil.isNotBlank(inputUser))
                 argUser = inputUser;
 
             System.out.print("Password: ");
-            argPassword = input.readLine();
+            argPassword = BoundedLineReader.readLine(input, 5_000_000);
             if (StringUtil.isBlank(argPassword))
             {
                 System.err.println("ERROR: blank passwords not supported");

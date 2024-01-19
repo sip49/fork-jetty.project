@@ -13,6 +13,7 @@
 
 package org.eclipse.jetty.start;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -241,7 +242,7 @@ public class BaseBuilder
                 {
                     BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
                     System.err.printf("%nProceed (y/N)? ");
-                    String response = input.readLine();
+                    String response = BoundedLineReader.readLine(input, 5_000_000);
 
                     if (Utils.isBlank(response) || !response.toLowerCase(Locale.ENGLISH).startsWith("y"))
                         System.exit(1);
