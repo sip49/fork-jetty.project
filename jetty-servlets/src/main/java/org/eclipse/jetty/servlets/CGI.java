@@ -13,6 +13,7 @@
 
 package org.eclipse.jetty.servlets;
 
+import io.github.pixee.security.SystemCommand;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -346,7 +347,7 @@ public class CGI extends HttpServlet
         if (LOG.isDebugEnabled())
             LOG.debug("Environment: {} Command: {}", env.getExportString(), execCmd);
 
-        final Process p = Runtime.getRuntime().exec(execCmd, env.getEnvArray(), _docRoot);
+        final Process p = SystemCommand.runCommand(Runtime.getRuntime(), execCmd, env.getEnvArray(), _docRoot);
 
         // hook processes input to browser's output (async)
         if (bodyFormEncoded != null)
